@@ -11,12 +11,12 @@ FactoryBot.define do
     state { "MyString" }
     expired_at { "2020-04-27" }
   
-    trait :for_author do
-      for_author { create(:user, :admin) }
+    trait :with_author do
+      author_id { create(:user, :admin) }
     end
 
-    trait :for_assignee do
-      for_assignee { create(:user, :manager) }
+    trait :with_assignee do
+      assignee_id { create(:user, :manager) }
     end
   end
 end
