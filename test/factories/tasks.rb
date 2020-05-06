@@ -1,15 +1,13 @@
 FactoryBot.define do
   factory :task do
-    name { "MyString" }
-    
-    sequence :description do |n|
-      "MyString#{n}"
-    end
+    name 
+    description
+    state
 
     author_id { }
     assignee_id { } 
-    state { "MyString" }
-    expired_at { "2020-04-27" }
+
+    expired_at { '2020-04-27' }
   
     trait :with_author do
       author_id { create(:user, :admin) }

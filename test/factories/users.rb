@@ -1,26 +1,24 @@
 FactoryBot.define do
   factory :user do
-    first_name { "MyString" }
-    last_name { "MyString" }
-    password { "password" }
-    type { "MyString" }
-
-    sequence :email do |n|
+    first_name 
+    last_name 
+    
+    sequence :email do |n| 
       "email#{n}@example.com"
     end
-
-    avatar { "MyString" }
+    
+    password {'password'}
 
     trait :admin do
-      type { "admin" }
+      type { 'admin' }
     end
 
     trait :manager do
-      type { "manager" }
+      type { 'manager' }
     end
 
     trait :developer do
-      type { "developer" }
+      type { 'developer' }
     end
   end
 end
