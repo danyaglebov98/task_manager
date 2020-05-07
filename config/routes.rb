@@ -4,6 +4,5 @@ Rails.application.routes.draw do
   scope module: :web do
     resource :session, only: [:new, :create, :destroy]
     resource :board, only: :show
-    resource :session, only: :new
   end
 end
