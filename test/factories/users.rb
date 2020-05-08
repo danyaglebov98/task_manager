@@ -2,23 +2,20 @@ FactoryBot.define do
   factory :user do
     first_name 
     last_name 
-    
-    sequence :email do |n| 
-      "email#{n}@example.com"
-    end
-    
-    password {'password'}
+    password
+    email
 
-    trait :admin do
+    factory :admin do
       type { 'admin' }
     end
 
-    trait :manager do
+    factory :manager do
       type { 'manager' }
     end
 
-    trait :developer do
-      type { 'developer' }
+    factory :developer do
+      type { "Developer" }
     end
   end
 end
+
