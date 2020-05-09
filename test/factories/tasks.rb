@@ -4,8 +4,8 @@ FactoryBot.define do
     description
     state
 
-    author_id {}
-    assignee_id {} 
+    association :author, factory: :manager 
+    association :assignee, factory: :developer
 
     expired_at { '2020-04-27' }
   end
