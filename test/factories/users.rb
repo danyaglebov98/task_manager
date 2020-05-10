@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
-    first_name 
-    last_name 
+    first_name
+    last_name
     password
     email
 
@@ -14,8 +14,7 @@ FactoryBot.define do
     end
 
     factory :developer do
-      type { "Developer" }
+      type { 'Developer' }
     end
   end
 end
-

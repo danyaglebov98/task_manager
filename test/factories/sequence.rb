@@ -3,7 +3,7 @@ FactoryBot.define do
     "string#{n}"
   end
 
-  sequence :email do |n| 
+  sequence :email do |n|
     "email#{n}@example.com"
   end
 end
