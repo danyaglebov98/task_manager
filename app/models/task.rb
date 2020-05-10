@@ -17,30 +17,30 @@ class Task < ApplicationRecord
     state :released
 
     state :state_development do
-      transition :new_task => :in_development
-      transition :in_qa => :in_development
-      transition :in_code_review => :in_development
+      transition new_task: :in_development
+      transition in_qa: :in_development
+      transition in_code_review: :in_development
     end
 
     state :state_qa do
-      transition :in_development => :in_qa
+      transition in_development: :in_qa
     end
 
     state :state_code_review do
-      transition :in_qa => :in_code_review
+      transition in_qa: :in_code_review
     end
 
     state :state_ready_for_release do
-      transition :in_code_review => :in_ready_for_release
+      transition in_code_review: :in_ready_for_release
     end
 
     state :state_released do
-      transition :in_ready_for_release => :released
+      transition in_ready_for_release: :released
     end
 
     state :state_archived do
-      transition :released => :archived
-      transition :new_task => :archived
+      transition released: :archived
+      transition new_task: :archived
     end
   end
 end
