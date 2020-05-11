@@ -6,8 +6,13 @@ class Web::DevelopersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'should post create' do
-    post :create, params: { developer: attributes_for(:developer) }
-    assert_response :redirect
+  test 'should post create' do 
+    developer = create(:developer, attributes_for(:developer))
+    attrs = {
+      email: developer.email,
+      password: developer.password,
+    }
+    post :create, params: { developer: attrs }
+    assert_response :success
   end
 end
