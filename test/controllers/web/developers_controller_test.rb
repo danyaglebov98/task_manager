@@ -7,13 +7,13 @@ class Web::DevelopersControllerTest < ActionController::TestCase
   end
 
   test 'should post create' do
-    attrs = attributes_for(:developer)
-    current_user = Developer.where(email: attrs[:email])
+    developer = create(:developer)
+    current_user = Developer.find_by!(email: developer.email)
 
-    post :create, params: { developer: attrs }
+    post :create, params: { developer: attributes_for(:developer) }
     assert_response :redirect
-    assert_equal attrs[:email], current_user[0]['email']
-    assert_equal attrs[:first_name], current_user[0]['first_name']
-    assert_equal attrs[:last_name], current_user[0]['last_name']
+    assert_equal developer.email, current_user['email']
+    assert_equal developer.first_name, current_user['first_name']
+    assert_equal developer.last_name, current_user['last_name']
   end
 end
