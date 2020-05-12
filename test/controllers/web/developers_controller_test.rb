@@ -7,22 +7,13 @@ class Web::DevelopersControllerTest < ActionController::TestCase
   end
 
   test 'should post create' do
-    new_developer = create(:developer)
-    attrs = {
-      first_name: new_developer.first_name,
-      last_name: new_developer.last_name,
-      email: new_developer.email,
-      password: new_developer.password,
-    }
-    post :create, params: { developer: attributes_for(:developer) }
-    assert_response :redirect
+    attrs = attributes_for(:developer)
+    current_user = Developer.where(email: attrs[:email])
 
     post :create, params: { developer: attrs }
-    assert_response :success
-    assert_not_nil new_developer
-    assert_not_empty attrs[:first_name]
-    assert_not_empty attrs[:last_name]
-    assert_not_empty attrs[:email]
-    assert_not_empty attrs[:password]
+    assert_response :redirect
+    assert_equal attrs[:email], current_user[0]['email']
+    assert_equal attrs[:first_name], current_user[0]['first_name']
+    assert_equal attrs[:last_name], current_user[0]['last_name']
   end
 end
