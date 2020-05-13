@@ -6,7 +6,11 @@ FactoryBot.define do
     email
 
     factory :admin do
-      type { 'admin' }
+      #type { 'admin' }
+      first_name { generate :string }
+      last_name { generate :string }
+      email
+      password {generate :string }
     end
 
     factory :manager do
