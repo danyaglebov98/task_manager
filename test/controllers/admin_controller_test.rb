@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class Admin::UsersControllerTest < ActionController::TestCase
+  setup do
+    admin = create(:admin)
+    sign_in admin
+  end
+
   test 'should get edit' do
     user = create(:user)
     get :edit, params: { id: user.id }
@@ -15,11 +20,6 @@ class Admin::UsersControllerTest < ActionController::TestCase
   test 'should get index' do
     get :index
     assert_response :success
-  end
-
-  setup do
-    admin = create(:admin)
-    sign_in admin
   end
 
   test 'should get show' do
