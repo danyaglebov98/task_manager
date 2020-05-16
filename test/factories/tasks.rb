@@ -2,7 +2,6 @@ FactoryBot.define do
   factory :task do
     name
     description
-    state
 
     association :author, factory: :manager
     association :assignee, factory: :developer

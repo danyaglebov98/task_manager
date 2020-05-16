@@ -4,9 +4,8 @@ require 'rails/test_help'
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
-  # Run tests in parallel with specified workers
+  include AuthHelper
   parallelize(workers: :number_of_processors)
 
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 end
