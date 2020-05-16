@@ -51,7 +51,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   test 'should delete destroy' do
     user = create(:user)
-    delete :destroy, params: {id: user.id }
+    delete :destroy, params: { id: user.id }
     assert_response :redirect
     assert_not User.exists?(user.id)
   end
