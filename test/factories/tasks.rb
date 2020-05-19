@@ -6,6 +6,8 @@ FactoryBot.define do
     association :author, factory: :manager
     association :assignee, factory: :developer
 
-    expired_at { '2020-04-27' }
+    trait :time do
+      expired_at { Time.now }
+    end
   end
 end
