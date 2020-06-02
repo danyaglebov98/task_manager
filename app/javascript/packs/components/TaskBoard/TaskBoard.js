@@ -5,6 +5,9 @@ import { propOr } from 'ramda';
 import Task from '../Task';
 import TasksRepository from 'repositories/TasksRepository';
 import ColumnHeader from '../ColumnHeader';
+import TaskForm from 'forms/TaskForm';
+import AddPopup from '../AddPopup';
+import AddButton from './AddButton';
 
 const STATES = [
   { key: 'new_task', value: 'New' },
@@ -28,6 +31,7 @@ const initialBoard = {
 const TaskBoard = () => {
   const [board, setBoard] = useState(initialBoard);
   const [boardCards, setBoardCards] = useState({});
+  const [isUpdating, setUpdating] = useState(false);
 
   const loadColumn = (state, page, perPage) => {
     return TasksRepository.index({
@@ -50,9 +54,15 @@ const TaskBoard = () => {
 
   const loadColumnMore = (state, page = 1, perPage = 10) => {
     loadColumn(state, page, perPage).then(({ data }) => {
-      loadColumnInitial(state, page, perPage);
-
-      console.log('perPage =', perPage, ' page =', page, ' data =', data);
+      setBoardCards((prevState) => {
+        const addCards = [...prevState[state].cards, ...data.items];
+        const newMeta = data.meta;
+        newMeta.count = addCards.length;
+        return {
+          ...prevState,
+          [state]: { cards: addCards, meta: newMeta },
+        };
+      });
     });
   };
 
@@ -67,7 +77,6 @@ const TaskBoard = () => {
         };
       }),
     };
-    // console.log('22=', newBoard);
     setBoard(newBoard);
   };
 
@@ -78,13 +87,62 @@ const TaskBoard = () => {
   useEffect(() => loadBoard(), []);
   useEffect(() => generateBoard(), [boardCards]);
 
+  const handleCardDragEnd = (task, source, destination) => {
+    const transition = task.transitions.find(({ to }) => destination.toColumnId === to);
+    if (!transition) {
+      return null;
+    }
+    setUpdating(true);
+
+    return TasksRepository.update(task.id, { task: { stateEvent: transition.event } })
+      .then(() => {
+        loadColumnInitial(destination.toColumnId);
+        loadColumnInitial(source.fromColumnId);
+        setUpdating(false);
+      })
+      .catch((error) => {
+        alert(`Move failed! ${error.message}`);
+        setUpdating(false);
+      });
+  };
+
+  const MODES = {
+    ADD: 'add',
+    NONE: 'none',
+  };
+
+  const [mode, setMode] = useState(MODES.NONE);
+
+  const handleOpenAddPopup = () => {
+    setMode(MODES.ADD);
+  };
+
+  const handleClose = () => {
+    setMode(MODES.NONE);
+  };
+
+  const handleTaskCreate = (params) => {
+    const attributes = TaskForm.attributesToSubmit(params);
+    console.log(attributes);
+    return TasksRepository.create(attributes).then(({ data: { task } }) => {
+      loadColumnInitial(task.state);
+      handleClose();
+    });
+  };
+
   return (
-    <KanbanBoard
-      renderCard={(card) => <Task task={card} />}
-      renderColumnHeader={(column) => <ColumnHeader column={column} onLoadMore={loadColumnMore} />}
-    >
-      {board}
-    </KanbanBoard>
+    <>
+      <KanbanBoard
+        disableCardDrag={isUpdating}
+        onCardDragEnd={handleCardDragEnd}
+        renderCard={(card) => <Task task={card} />}
+        renderColumnHeader={(column) => <ColumnHeader column={column} onLoadMore={loadColumnMore} />}
+      >
+        {board}
+      </KanbanBoard>
+      <AddButton onClick={handleOpenAddPopup} />
+      {mode === MODES.ADD && <AddPopup onCreateCard={handleTaskCreate} onClose={handleClose} />}
+    </>
   );
 };
 

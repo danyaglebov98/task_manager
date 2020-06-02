@@ -12,10 +12,10 @@ const ColumnHeader = ({ column, onLoadMore }) => {
   const {
     id,
     title,
-    meta: { count, totalCount, currentPage, perPage },
+    meta: { count, totalCount, currentPage },
   } = column;
 
-  const handleLoadMore = () => onLoadMore(id, currentPage, perPage + 10);
+  const handleLoadMore = () => onLoadMore(id, currentPage + 1);
 
   return (
     <div className={styles.root}>
@@ -23,9 +23,11 @@ const ColumnHeader = ({ column, onLoadMore }) => {
         <b>{title}</b> ({count}/{totalCount || '…'})
       </div>
       <div className={styles.actions}>
-        <IconButton aria-label="Load more" onClick={() => handleLoadMore()}>
-          <SystemUpdateAltIcon fontSize="small" />
-        </IconButton>
+        {count !== totalCount && (
+          <IconButton aria-label="Load more" onClick={handleLoadMore}>
+            <SystemUpdateAltIcon fontSize="small" />
+          </IconButton>
+        )}
       </div>
     </div>
   );
