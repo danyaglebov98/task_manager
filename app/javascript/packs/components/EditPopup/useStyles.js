@@ -12,14 +12,14 @@ const useStyles = makeStyles(() => ({
     width: 465,
   },
 
+  loader: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+
   actions: {
     display: 'flex',
     justifyContent: 'flex-end',
-  },
-
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
   },
 }));
 
