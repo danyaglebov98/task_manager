@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import KanbanBoard from '@lourenci/react-kanban';
 import { propOr } from 'ramda';
 
-import Task from '../Task';
-import TasksRepository from 'repositories/TasksRepository';
-import ColumnHeader from '../ColumnHeader';
 import TaskForm from 'forms/TaskForm';
-import AddPopup from '../AddPopup';
+import TasksRepository from 'repositories/TasksRepository';
+
+import ColumnHeader from './ColumnHeader';
+import AddPopup from './AddPopup';
 import AddButton from './AddButton';
-import EditPopup from '../EditPopup';
+import EditPopup from './EditPopup';
+import Task from './Task';
 
 const STATES = [
   { key: 'new_task', value: 'New' },
