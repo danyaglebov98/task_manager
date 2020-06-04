@@ -68,12 +68,9 @@ const TaskBoard = () => {
   const loadColumnMore = (state, page = 1, perPage = 10) => {
     loadColumn(state, page, perPage).then(({ data }) => {
       setBoardCards((prevState) => {
-        const addCards = [...prevState[state].cards, ...data.items];
-        const newMeta = data.meta;
-        newMeta.count = addCards.length;
         return {
           ...prevState,
-          [state]: { cards: addCards, meta: newMeta },
+          [state]: { cards: [...prevState[state].cards, ...data.items], meta: data.meta },
         };
       });
     });

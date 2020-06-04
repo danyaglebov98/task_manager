@@ -12,8 +12,11 @@ const ColumnHeader = ({ column, onLoadMore }) => {
   const {
     id,
     title,
-    meta: { count, totalCount, currentPage },
+    cards,
+    meta: { totalCount, currentPage },
   } = column;
+
+  const count = cards.length;
 
   const handleLoadMore = () => onLoadMore(id, currentPage + 1);
 
