@@ -6,7 +6,7 @@ class Api::V1::TasksController < Api::V1::ApplicationController
   end
 
   def index
-    tasks = Task.ransack(ransack_params).
+    tasks = Task.order(updated_at: :desc).ransack(ransack_params).
       result.
       page(page).
       per(per_page)
@@ -38,6 +38,6 @@ class Api::V1::TasksController < Api::V1::ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :author_id, :assignee_id, :state_event)
+    params.require(:task).permit(:name, :description, :assignee_id, :state_event)
   end
 end
