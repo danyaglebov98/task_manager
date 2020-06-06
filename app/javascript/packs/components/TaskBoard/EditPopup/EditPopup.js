@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isNil } from 'ramda';
 
-import Form from './Form';
+import Form from 'packs/components/TaskBoard/Form';
 import useStyles from './useStyles';
 
 import Modal from '@material-ui/core/Modal';
