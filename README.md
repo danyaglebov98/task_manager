@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/Al-Fro/task_manager.svg?branch=develop)](https://travis-ci.com/Al-Fro/task_manager)
+
 # README
 
 This README would normally document whatever steps are necessary to get the
