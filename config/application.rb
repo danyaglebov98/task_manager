@@ -8,5 +8,6 @@ module TaskManager
   class Application < Rails::Application
     config.load_defaults 6.0
     config.assets.paths << Rails.root.join('node_modules')
+    config.assets.initialize_on_precompile = false
   end
 end
