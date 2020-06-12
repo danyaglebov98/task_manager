@@ -4,13 +4,6 @@ require 'js-routes'
 
 namespace :js_routes do
   desc 'Generate js routes for webpack'
-  user generate: :environment do
-    ROUTES_DIR = File.join('app', 'javascript', 'routes')
-    FileUtils.mkdir_p(Rails.root.join(ROUTES_DIR))
-    file_name = File.join(ROUTES_DIR, 'ApiRoutes.js')
-    JsRoutes.generate!(file_name, camel_case: true)
-  end
-
   task generate: :environment do
     ROUTES_DIR = File.join('app', 'javascript', 'routes')
     FileUtils.mkdir_p(Rails.root.join(ROUTES_DIR))
@@ -18,3 +11,4 @@ namespace :js_routes do
     JsRoutes.generate!(file_name, camel_case: true)
   end
 end
+

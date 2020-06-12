@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import PropTypesPresenter from 'utils/PropTypesPresenter';
 
-import userPresenter from './UserPresenter';
+import UserPresenter from './UserPresenter';
 
 export default new PropTypesPresenter({
   id: PropTypes.number,
   name: PropTypes.string,
   description: PropTypes.string,
   state: PropTypes.string,
-  author: userPresenter.shape(),
-  assignee: userPresenter.shape(),
+  author: UserPresenter.shape(),
+  assignee: UserPresenter.shape(),
   transitions: PropTypes.object,
 });
