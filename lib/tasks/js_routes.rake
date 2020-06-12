@@ -11,3 +11,4 @@ namespace :js_routes do
     JsRoutes.generate!(file_name, camel_case: true)
   end
 end
+
